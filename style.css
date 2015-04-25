@@ -1,0 +1,41 @@
+/*
+Theme Name: Hueman Child for the Tower
+Version: 1.0.0
+Author: Aaron Olkin and Jackson Miller
+Tags: light, one-column, two-columns, three-columns, right-sidebar, left-sidebar, fluid-layout, fixed-layout, custom-colors, custom-menu, featured-images, flexible-header, full-width-template, post-formats, sticky-post, theme-options, threaded-comments, translation-ready
+Text Domain: hueman-child
+template: hueman
+
+	Copyright: (c) 2015 Aaron Olkin and Jackson Miller
+	License: GNU General Public License v3.0
+	License URI: http://www.gnu.org/licenses/gpl-3.0.html
+*/
+
+.site-title {
+	float: none;
+	margin: -20px auto -58px;
+}
+
+.post-inner .post-byline:first-of-type {
+	margin-bottom: -0.2em;
+}
+
+.entry-inner p:first-child {
+	font-size: 13px;
+	font-weight: 400;
+	color: #aaa;
+	line-height: 1.3em;
+}
+
+.entry-inner p:first-child .post-byline {
+	font-size: 13px;
+}
+
+.excerpt br {
+	display: none;
+}
+
+.post-list-item .post-byline, .post-list-item .post-title {
+	margin-bottom: 0.2em;
+	line-height: 1.4em;
+}

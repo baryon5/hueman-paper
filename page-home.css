@@ -1,0 +1,56 @@
+.col-3cm .main {
+    background: none;
+}
+
+.col-3cm .main-inner {
+    background: none;
+    padding: initial;
+}
+
+.hp-triple-post {
+  width: 32%;
+  float: left;
+  margin-right: 2%;
+}
+
+.hp-triple-post {
+   /* height: 464px; */
+}
+
+.hp-triple-post:last-child {
+  margin-right: 0;
+}
+
+/*.hp-triple-container, .hp-text-post, .hp-banner-post {
+  margin-top: 1em;
+}*/
+
+.hp-triple-container, .hp-banner-post, .hp-text-post {
+  clear: both;
+}
+
+.hp-text-post {
+  margin-bottom: 1.5em;
+}
+
+.post-title {
+  line-height: 1.1em;
+  margin-bottom: 2px;
+}
+
+.overlay-text-container {
+  position: absolute;
+  bottom: 2em;
+  left: 1em;
+  background-color: rgba(255,255,255,0.8);
+  padding: 1em;
+}
+
+.hp-triple-post .overlay-text-container {
+  right: 1em;
+}
+
+.overlay-text-container .post-date, .overlay-text-container .post-byline  {
+  color: #555;
+  margin-bottom: 0px;
+}
