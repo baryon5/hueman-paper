@@ -6,7 +6,7 @@
 				<?php if ( has_post_thumbnail() ): ?>
 					<?php the_post_thumbnail('thumb-standard'); ?>
 				<?php elseif ( ot_get_option('placeholder') != 'off' ): ?>
-					<img src="<?php echo get_template_directory_uri(); ?>/img/thumb-standard.png" alt="<?php the_title(); ?>" />
+					<img src="<?php echo get_stylesheet_directory_uri(); ?>/thumb-standard.png" alt="<?php the_title(); ?>" />
 				<?php endif; ?>
 				<?php if ( has_post_format('video') && !is_sticky() ) echo'<span class="thumb-icon"><i class="fa fa-play"></i></span>'; ?>
 				<?php if ( has_post_format('audio') && !is_sticky() ) echo'<span class="thumb-icon"><i class="fa fa-volume-up"></i></span>'; ?>
