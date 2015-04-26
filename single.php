@@ -11,7 +11,10 @@
 				<div class="post-inner group">
 					
 					<h1 class="post-title"><?php the_title(); ?></h1>
-					<p class="post-byline"><?php the_time(get_option('date_format')); ?></p>
+					<p class="post-byline">
+					  <?php the_time(get_option('date_format')); ?> &middot;
+					  <?php the_credits("byline"); ?>
+					</p>
 					
 					<?php if( get_post_format() ) { get_template_part('inc/post-formats'); } ?>
 					

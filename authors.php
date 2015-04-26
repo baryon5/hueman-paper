@@ -38,10 +38,11 @@ function credit_404() {
 add_action("wp", "credit_404");
 
 add_shortcode( 'credit', 'credit_shortcode');
-function credit_shortcode( $atts, $content = null ) {
+function credit_shortcode( $atts, $content = null, $other = null, $force = false ) {
 	$out = '';
 	$classes = "credit-" . $atts["type"] . " ";
-	if ($atts["type"] == "byline") {
+	if ($atts["type"] == "byline" && !$force) {
+	        return $content;
 		$classes .= "post-byline";
 	}
 	$link = '<a href="/credit/' . $atts["name"] . '/" title="View all of this person\'s work">';
@@ -102,7 +103,7 @@ function the_credits( $type ) {
   $credits = array();
   foreach ($all_credits as $credit) {
     if ( !isset($type) || (isset($credit["type"]) && $credit["type"] == $type) ) {
-      array_push($credits, credit_shortcode($credit));
+      array_push($credits, credit_shortcode($credit, null, null, true));
     }
   }
   if (count($credits) < 1) {

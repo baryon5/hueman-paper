@@ -16,21 +16,6 @@ template: hueman
 	margin: -20px auto -58px;
 }
 
-.post-inner .post-byline:first-of-type {
-	margin-bottom: -0.2em;
-}
-
-.entry-inner p:first-child {
-	font-size: 13px;
-	font-weight: 400;
-	color: #aaa;
-	line-height: 1.3em;
-}
-
-.entry-inner p:first-child .post-byline {
-	font-size: 13px;
-}
-
 .excerpt br {
 	display: none;
 }
@@ -38,4 +23,8 @@ template: hueman
 .post-list-item .post-byline, .post-list-item .post-title {
 	margin-bottom: 0.2em;
 	line-height: 1.4em;
+}
+
+.post-inner .entry-inner p:first-child:empty {
+  display: none;
 }
