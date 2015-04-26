@@ -64,7 +64,7 @@ function fix_authors() {
 	$shortcode = "[credit name=\"$name\" position=\"$position\" type=\"byline\"]";
 	$content .= $shortcode;
       }
-      $post->post_content = $content . "\n" . $post->post_content;
+      $post->post_content = $content . $post->post_content;
       wp_update_post(array("ID" => $post->ID, "post_content" => $post->post_content) );
       tower_author_save($post->ID);
       update_post_meta($post->ID, "_fixed_authors", 1);
