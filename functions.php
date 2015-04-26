@@ -46,3 +46,33 @@ function custom_trim_excerpt($text) { // Fakes an excerpt if needed
 }
 
 include_once("authors.php");
+
+
+function fix_authors() {
+  $pt = $post;
+  global $post;
+  $query = new WP_Query(array("posts_per_page" => -1, "post_type" => "post"));
+  $c = 0;
+  while ($query->have_posts()) {
+    $query->the_post();
+    if (get_post_meta($post->ID, "_fixed_authors", true) != 1) {
+      $content = "";
+      foreach(get_coauthors() as $a) {
+	$parts = explode(" (", $a->display_name);
+	$name = $parts[0];
+	$position = trim($parts[1], ")");
+	$shortcode = "[credit name=\"$name\" position=\"$position\" type=\"byline\"]";
+	$content .= $shortcode;
+      }
+      $post->post_content = $content . "\n" . $post->post_content;
+      wp_update_post(array("ID" => $post->ID, "post_content" => $post->post_content) );
+      tower_author_save($post->ID);
+      update_post_meta($post->ID, "_fixed_authors", 1);
+      echo $c . "<br>";
+      $c++;
+    }
+  }
+  $post = $pt;
+}
+
+add_action("admin_post_fix_authors", "fix_authors");
