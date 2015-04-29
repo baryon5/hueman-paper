@@ -2,6 +2,7 @@
 
 
 function credit_init() {
+  add_rewrite_rule('^credit/([^/]+)/page/(\d+)/?$', 'index.php?page_id=0&credit=$matches[1]&page=$matches[2]', 'top');
   add_rewrite_rule('^credit/([^/]+)/?$', 'index.php?page_id=0&credit=$matches[1]', 'top');
   add_rewrite_tag("%credit%", '([^/]+)');
 }
@@ -25,6 +26,7 @@ function modify_query( $query ) {
         'compare' => "="
       )
     ));
+    $query->set("paged", get_query_var("page"));
   }
 }
 add_action("pre_get_posts", "modify_query");
