@@ -55,6 +55,11 @@ $wp_query = $backup_query;
 	
 </section><!--/.content-->
 
-<?php get_sidebar(); ?>
-
-<?php get_footer(); ?>
+<?php
+$backup_query = $wp_query;
+$wp_query = new WP_Query(array('post_type' => 'post',
+			       'posts_per_page' => 1));
+get_sidebar();
+get_footer();
+$wp_query = $backup_query;
+?>
