@@ -50,7 +50,7 @@ function credit_shortcode( $atts, $content = null, $other = null, $force = false
 	$link = '<a href="/credit/' . $atts["name"] . '/" title="View all of this person\'s work">';
 	$link .= $atts["name"] . '</a>';
 	$out .= '<span class="credit ' . $classes . '">' . $link;
-	if (isset($atts["position"])) {
+	if (isset($atts["position"]) && $atts["position"] != "") {
 		$out .= ' (' . $atts["position"] . ')';
 	}
 	$out .= '</span>';
@@ -84,7 +84,7 @@ function tower_author_save($post_id) {
 }
 
 function parse_credit($match) {
-  preg_match_all('/(name|position|type|nolink)="(.+?)"/si', $match, $attrs);
+  preg_match_all('/(name|position|type|nolink)="(.*?)"/si', $match, $attrs);
   return array_combine($attrs[1], $attrs[2]);
 }
 
