@@ -11,6 +11,20 @@ function home_page_enqueue_styles() {
 }
  get_header();
 
+$tags = get_tags();
+for ($i=0;  $i < count($tags); $i++)
+  {
+    $tag_id_array[$i] = $tags[$i]->term_id;
+  }
+
+$the_section_array = array(
+	     // array( "The Joke Issue", "joke", 185),
+	     array( "News & Features", "news", 4 ),
+	     array( "Opinions", "opinions", 7 ),
+	     array( "Vanguard", "vanguard", 8 ),
+	     array( "Arts & Entertainment", "arts-and-entertainment", 9 ),
+	     array( "Sports", "sports", 3 ),
+        );
 
 $year_query = "SELECT meta_value FROM  $wpdb->postmeta WHERE meta_key = '_ao_issues_year' ORDER BY meta_id DESC LIMIT 1";
 $year_result = $wpdb->get_results( $year_query );
@@ -18,7 +32,26 @@ $year = $year_result[0]->meta_value;
 
 $number_query = "SELECT meta_value FROM  $wpdb->postmeta WHERE meta_key = '_ao_issues_number' ORDER BY meta_id DESC LIMIT 1";
 $number_result = $wpdb->get_results( $number_query );
-$number = $number_result[0]->meta_value;
+$number = $number_result[0]->meta_value + 1;
+
+while (!isset($others) || $others->found_posts < 8) {
+  $number -= 1;
+	    $args = array(
+	    'posts_per_page' => -1,
+	    'meta_query' => array(
+	        array(
+		      'key' => '_ao_issues_number',
+		      'value' => $number
+		      ),
+	        array(
+		      'key' => '_ao_issues_year',
+		      'value' => $year
+		      )
+	        )
+	    );
+
+	    $others = new WP_Query( $args );
+}
 
 	    $args = array( // http://www.billerickson.net/code/wp_query-arguments/ for help with these
             // Change these category SLUGS to suit your use, or use the tag option
@@ -59,21 +92,6 @@ $number = $number_result[0]->meta_value;
         );
 
         $triple_query = new WP_Query( $args );
-
-$tags = get_tags();
-for ($i=0;  $i < count($tags); $i++)
-  {
-    $tag_id_array[$i] = $tags[$i]->term_id;
-  }
-
-$the_section_array = array(
-	     // array( "The Joke Issue", "joke", 185),
-	     array( "News & Features", "news", 4 ),
-	     array( "Opinions", "opinions", 7 ),
-	     array( "Vanguard", "vanguard", 8 ),
-	     array( "Arts & Entertainment", "arts-and-entertainment", 9 ),
-	     array( "Sports", "sports", 3 ),
-        );
  ?>
 
 <section class="content">
