@@ -28,3 +28,15 @@ template: hueman
 .post-inner .entry-inner p:first-child:empty {
   display: none;
 }
+
+
+/* CSS previously via Jetpack */
+
+.sidebar .widget {
+    padding: 20px 30px 0px;
+}
+
+.widgets-list-layout-links {
+  margin-top: -2em;
+  margin-bottom: 0.5em;
+}

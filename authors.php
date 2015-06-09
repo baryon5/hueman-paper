@@ -59,6 +59,7 @@ function credit_shortcode( $atts, $content = null, $other = null, $force = false
 
 function tower_author_admin_init() {
   add_action( 'save_post', 'tower_author_save' );
+  add_editor_style();
 }
 
 add_action('admin_init', 'tower_author_admin_init');
@@ -112,4 +113,51 @@ function the_credits( $type ) {
     return false;
   }
   echo "By " . format_with_oxford_comma($credits);
+}
+
+
+
+
+// AUTHOR BUTTON
+
+add_action("media_buttons_context", "add_credit_creation_button");
+
+function add_credit_creation_button($context) {
+  $context .= '<a title="Add New Credit Shortcode at Cursor" class="thickbox button" href="#TB_inline?width=200&inlineId=credit_popup_container">Add Credit (Byline)</a>';
+  return $context;
+}
+
+add_action("admin_footer", "add_credit_inline_popup");
+
+function add_credit_inline_popup() {
+?>
+<div id="credit_popup_container" style="display:none;">
+    <p>
+      <select id="credit_popup_type" style="width: 100%">
+	<option value="byline" selected>Article Byline</option>
+	<option value="visual">Visual Credit</option>
+      </select>
+    </p>
+    <p>
+      <label><b>Name:</b><br>
+	<input id="credit_popup_name" style="width: 100%" /></label>
+    </p>
+    <p>
+      <label><b>Position:</b><br>
+	<input id="credit_popup_position" style="width: 100%" /></label>
+    </p>
+    <p>
+      <button style="width: 100%" class="button" id="credit_popup_create">Add Byline</button>
+    </p>
+    <p>
+      <input style="width: 100%" readonly id="credit_popup_shortcode" />
+    </p>
+</div>
+<?php
+}
+
+add_action("admin_enqueue_scripts", "add_editor_button_credit");
+
+function add_editor_button_credit() {
+  wp_enqueue_script("editor_credit_button", get_stylesheet_directory_uri() . '/admin.js');
 }
