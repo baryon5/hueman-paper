@@ -15,6 +15,10 @@ template: hueman
     float: none;
     margin: -20px auto -58px;
 }
+.search-expand-inner{
+	padding: 10px;
+	background: rgba(45, 104, 168, 1);
+}
 
 .excerpt br {
     display: none;
