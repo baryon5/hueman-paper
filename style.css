@@ -12,23 +12,27 @@ template: hueman
 */
 
 .site-title {
-	float: none;
-	margin: -20px auto -58px;
+    float: none;
+    margin: -20px auto -58px;
 }
 
 .excerpt br {
-	display: none;
+    display: none;
 }
 
 .post-list-item .post-byline, .post-list-item .post-title {
-	margin-bottom: 0.2em;
-	line-height: 1.4em;
+    margin-bottom: 0.2em;
+    line-height: 1.4em;
 }
 
 .post-inner .entry-inner p:first-child:empty {
-  display: none;
+    display: none;
 }
 
+ul.comment-form-notes {
+    list-style-type: circle;
+    margin-left: 2em;
+}
 
 /* CSS previously via Jetpack */
 
@@ -37,6 +41,6 @@ template: hueman
 }
 
 .widgets-list-layout-links {
-  margin-top: -2em;
-  margin-bottom: 0.5em;
+    margin-top: -2em;
+    margin-bottom: 0.5em;
 }

@@ -76,3 +76,15 @@ function fix_authors() {
 }
 
 add_action("admin_post_fix_authors", "fix_authors");
+
+function tower_comment_defaults( $args ) {
+  $args["comment_notes_before"] = 'Please use your real name and email. Your email address will not be published.';
+  $args["comment_notes_after"] = 'Any comments containing the following material will be removed: <ul class="comment-form-notes"><li style="padding:0;">Hostility or insulting language directed towards other users, authors, Tower staff, or a specific group of people</li>
+<li style="padding:0;">Any type of harassment</li>
+<li style="padding:0;">Profanity, crude language, or slurs</li>
+<li style="padding:0;">Personal information about yourself or anyone else</li>
+<li style="padding:0;">Discussion unrelated to the article</li></ul>';
+  return $args;
+}
+
+add_filter("comment_form_defaults", "tower_comment_defaults", 500);
