@@ -38,6 +38,11 @@ ul.comment-form-notes {
     margin-left: 2em;
 }
 
+#nav-header .toggle-search {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 /* CSS previously via Jetpack */
 
 .sidebar .widget {
