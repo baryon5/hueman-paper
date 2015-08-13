@@ -18,13 +18,12 @@ for ($i=0;  $i < count($tags); $i++)
   }
 
 $the_section_array = array(
-	     // array( "The Joke Issue", "joke", 185),
-	     array( "News & Features", "news", 4 ),
-	     array( "Opinions", "opinions", 7 ),
-	     array( "Vanguard", "vanguard", 8 ),
-	     array( "Arts & Entertainment", "arts-and-entertainment", 9 ),
-	     array( "Sports", "sports", 3 ),
-        );
+        "news",
+	"opinions",
+	"vanguard",
+	"arts-and-entertainment",
+	"sports"
+);
 
 $year_query = "SELECT meta_value FROM  $wpdb->postmeta WHERE meta_key = '_ao_issues_year' ORDER BY meta_id DESC LIMIT 1";
 $year_result = $wpdb->get_results( $year_query );
@@ -34,9 +33,9 @@ $number_query = "SELECT meta_value FROM  $wpdb->postmeta WHERE meta_key = '_ao_i
 $number_result = $wpdb->get_results( $number_query );
 $number = $number_result[0]->meta_value + 1;
 
-while (!isset($others) || $others->found_posts < 8) {
+while ((!isset($others) || $others->found_posts < 8) && $number > 0) {
   $number -= 1;
-	    $args = array(
+  $args = array(
 	    'posts_per_page' => -1,
 	    'meta_query' => array(
 	        array(
@@ -50,12 +49,26 @@ while (!isset($others) || $others->found_posts < 8) {
 	        )
 	    );
 
-	    $others = new WP_Query( $args );
+  $others = new WP_Query( $args );
 }
 
-	    $args = array( // http://www.billerickson.net/code/wp_query-arguments/ for help with these
+$override_year = get_option("hp-override-year")["hp-override-year"];
+$override_issue = get_option("hp-override-issue")["hp-override-issue"];
+$override_category = get_option("hp-override-category")["hp-override-category"];
+
+if ($override_year) {
+  $year = $override_year;
+}
+if ($override_issue) {
+  $number = $override_issue;
+}
+if ($override_category) {
+  $the_section_array = array($override_category);
+}
+
+$args = array( // http://www.billerickson.net/code/wp_query-arguments/ for help with these
             // Change these category SLUGS to suit your use, or use the tag option
-            //'category_name' => 'opinions',
+            'category_name' => $override_category,
             'tag' => 'featured-text',
 	    'posts_per_page' => 5,
 	    'orderby' => 'rand',
@@ -75,7 +88,7 @@ while (!isset($others) || $others->found_posts < 8) {
 
 	    $args = array( // http://www.billerickson.net/code/wp_query-arguments/ for help with these
             // Change these category SLUGS to suit your use, or use the tag option
-            //'category_name' => 'arts and entertainment',
+            'category_name' => $override_category,
             'tag' => 'triple',
 	    'posts_per_page' => 6,
 	    'orderby' => 'rand',
@@ -126,8 +139,18 @@ while (!isset($others) || $others->found_posts < 8) {
         <?php
 	    $args = array( // http://www.billerickson.net/code/wp_query-arguments/ for help with these
             // Change these category SLUGS to suit your use, or use the tag option
-            'category_name' => 'news',
+	    'category_name' => $override_category?$override_category:'news',
             'tag' => 'banner',
+	    'meta_query' => array(
+	        array(
+		      'key' => '_ao_issues_number',
+		      'value' => $number
+		      ),
+	        array(
+		      'key' => '_ao_issues_year',
+		      'value' => $year
+		      )
+	    ),
 	    'posts_per_page' => 1
         );
 
@@ -161,8 +184,19 @@ while (!isset($others) || $others->found_posts < 8) {
         <?php
 	    $args = array( // http://www.billerickson.net/code/wp_query-arguments/ for help with these
             // Change these category SLUGS to suit your use, or use the tag option
-            'category_name' => 'vanguard',
+            'category_name' => $override_category?$override_category:'vanguard',
+	    'offset' => $override_category ? 1 : 0,
             'tag' => 'banner',
+	    'meta_query' => array(
+	        array(
+		      'key' => '_ao_issues_number',
+		      'value' => $number
+		      ),
+	        array(
+		      'key' => '_ao_issues_year',
+		      'value' => $year
+		      )
+	    ),
 	    'posts_per_page' => 1
         );
 
@@ -197,7 +231,7 @@ while (!isset($others) || $others->found_posts < 8) {
 	<?php foreach ($the_section_array as $the_section): ?>
 	<?php
 	    $args = array(
-	    'category_name' => $the_section[1],
+	    'category_name' => $the_section,
             'tag__not_in' => $tag_id_array,
 	    'posts_per_page' => -1,
 	    'orderby' => 'rand',
