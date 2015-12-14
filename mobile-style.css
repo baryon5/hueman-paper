@@ -1,0 +1,30 @@
+@media only screen and (max-width : 719px) {
+
+    .site-title {
+	padding: 24px 0 64px;
+    }
+    
+    .hp-banner-desktop-thumb {
+	display: none;
+    }
+
+    .hp-banner-mobile-thumb {
+	display: initial;
+    }
+
+    .overlay-text-container, .hp-triple-post .overlay-text-container {
+	bottom: 1.5em;
+	left: 0.5em;
+	right: 0.5em;
+	padding: 0.5em;
+    }
+
+    .hp-triple-post {
+	width: auto;
+	margin-right: auto;
+    }
+
+    .hp-text-post .entry.excerpt {
+	height: 11em;
+    }
+}

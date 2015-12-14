@@ -229,12 +229,13 @@ $args = array( // http://www.billerickson.net/code/wp_query-arguments/ for help 
 
 	<hr>
 	<?php foreach ($the_section_array as $the_section): ?>
+	<!-- Loop over each section -->
 	<?php
 	    $args = array(
-	    'category_name' => $the_section,
+            'category_name' => $the_section,
             'tag__not_in' => $tag_id_array,
-	    'posts_per_page' => -1,
-	    'orderby' => 'rand',
+	    'posts_per_page' => 3,
+	    'orderby' => 'category_name',
 	    'meta_query' => array(
 	        array(
 		      'key' => '_ao_issues_number',
@@ -246,11 +247,16 @@ $args = array( // http://www.billerickson.net/code/wp_query-arguments/ for help 
 		      )
 	        )
 	    );
-
+	    /* query all non-featured posts in the section */
             $other_posts = new WP_Query( $args );
         ?>
         <?php if ( $other_posts->have_posts() ) : ?>
+	<?php $other_posts->the_post(); ?>
+	<h3 class="post-category"><?php echo get_the_category()[0]->name; ?></h3>
+	<!-- Display posts using text-small-content.php template -->
+	<?php get_template_part( 'text-small-content', get_post_format() ); ?>
 	    <?php while ( $other_posts->have_posts() ) : $other_posts->the_post(); ?>
+	        <!-- Display posts using text-small-content.php template -->
 		<?php get_template_part( 'text-small-content', get_post_format() ); ?>
 	    <?php endwhile; ?>
 	<?php endif; ?>

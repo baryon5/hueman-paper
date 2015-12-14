@@ -4,7 +4,8 @@
 		<div class="post-thumbnail">
 			<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
 				<?php if ( has_post_thumbnail() ): ?>
-					<?php the_post_thumbnail('home-page-banner-thumb'); ?>
+	   <div class="hp-banner-desktop-thumb"><?php the_post_thumbnail('home-page-banner-thumb'); ?></div>	
+	<div class="hp-banner-mobile-thumb"><?php the_post_thumbnail('home-page-triple-thumb'); ?></div>
 				<?php elseif ( ot_get_option('placeholder') != 'off' ): ?>
 					<img src="<?php echo get_template_directory_uri(); ?>/img/thumb-medium.png" alt="<?php the_title(); ?>" />
 				<?php endif; ?>

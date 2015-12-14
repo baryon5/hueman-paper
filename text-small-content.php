@@ -10,9 +10,9 @@
 			<?php endif; ?>
 		</div><!--/.post-thumbnail-->
 		
-		<div class="post-meta group">
-			<p class="post-category"><?php the_category(' / '); ?></p>
-			<p class="post-date"><?php the_time('j M, Y'); ?></p>
+		<!--<div class="post-meta group">
+		  <p class="post-category"><?php the_category(' / '); ?></p>
+		  <p class="post-date"><?php the_time('j M, Y'); ?></p>
 		</div><!--/.post-meta-->
 		
 		<h2 class="post-title">
@@ -22,6 +22,11 @@
 		<div class="post-byline">
 			<?php the_credits('byline'); ?>
 		</div><!--/.post-byline-->
+
+		<div class="post-meta group">
+		  <!--<p class="post-category"><?php the_category(' / '); ?></p>-->
+		  <p class="post-date"><?php the_time('j M, Y'); ?></p>
+		</div><!--/.post-meta-->
 
 		<?php if (ot_get_option('excerpt-length') != '0'): ?>
 		<div class="entry excerpt">

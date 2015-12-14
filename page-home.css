@@ -54,3 +54,16 @@
   color: #555;
   margin-bottom: 0px;
 }
+
+.hp-text-small .post-byline, .hp-text-small .post-meta {
+    margin-bottom: auto;
+}
+
+h3.post-category {
+    font-size: 1.8em;
+    margin-top: 1em;
+}
+
+.hp-banner-mobile-thumb {
+    display: none;
+}
