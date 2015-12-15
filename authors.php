@@ -64,23 +64,34 @@ function tower_author_admin_init() {
 
 add_action('admin_init', 'tower_author_admin_init');
 
+function credit_meta_add($content, $credits, $post_id, $first) {
+  $pattern = get_shortcode_regex();
+  if ( preg_match_all('/'.$pattern.'/s', $content, $matches) 
+       && array_key_exists( 2, $matches ) ) {
+    if ( in_array( 'credit', $matches[2] ) ) {
+      $credits = add_credit_meta($matches, $credits, $post_id, $first);
+    }
+  }
+  return $credits;
+}
+
+function add_credit_meta($matches, $credits, $post_id, $first) {
+  for ($i = 0; $i < count($matches[2]); $i++) {
+    if ($matches[2][$i] == "credit") {
+      $c = parse_credit($matches[3][$i]);
+      array_push($credits, $c);
+      add_post_meta($post_id, "credit_name", $c["name"]);
+    } else if ($first) {
+      $credits = credit_meta_add($matches[5][$i], $credits, $post_id, false);
+    }
+  }
+  return $credits;
+}
+
 function tower_author_save($post_id) {
         delete_post_meta($post_id, "credit_name");
 	$content = get_post($post_id)->post_content;
-	$pattern = get_shortcode_regex();
-	$credits = array();
-	$credit_names = array();
-	if ( preg_match_all('/'.$pattern.'/s', $content, $matches) 
-	     && array_key_exists( 2, $matches )
-	     && in_array( 'credit', $matches[2] ) ) {
-	  for ($i = 0; $i < count($matches[2]); $i++) {
-	    if ($matches[2][$i] == "credit") {
-	      $c = parse_credit($matches[3][$i]);
-	      array_push($credits, $c);
-	      add_post_meta($post_id, "credit_name", $c["name"]);
-	    }
-	  }
-	}
+	$credits = credit_meta_add($content, array(), $post_id, true);
 	update_post_meta($post_id, "credits", $credits);
 }
 
